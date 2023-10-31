@@ -1,69 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Pleasant Homepage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
+{% extends 'core/base.html' %}
 
-        header {
-            background-color: #3498db;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
+{% block title %}Welcome{% endblock %}
 
-        h1 {
-            font-size: 36px;
-        }
+{% block content %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Maps</h2>
 
-        nav {
-            background-color: #2980b9;
-            text-align: center;
-        }
+        <div class="grid grid-cols-3 gap-3">
+            {% for map in omaps %}
+                <div>
+                    <a href="{% url 'omap:detail' map.id %}">
+                        <div>
+                            <img src="{{ map.image.url }}" class="rounded-t-xl">
+                        </div>
 
-        nav a {
-            text-decoration: none;
-            color: #fff;
-            padding: 10px 20px;
-            display: inline-block;
-        }
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ map.name }}</h2>
+                            <p class="text-gray-500">Star Rating: {{ map.star_rating }}</p>
+                            <p class="text-gray-500">Length: {{ map.length }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
-        section {
-            padding: 20px;
-            text-align: center;
-        }
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Categories</h2>
 
-        footer {
-            background-color: #3498db;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Pleasant Homepage</h1>
-    </header>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
-    </nav>
-    <section>
-        <h2>Welcome to our website!</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis, tortor vel fringilla tincidunt, dolor arcu ultricies lorem.</p>
-    </section>
-    <footer>
-        &copy; 2023 My Pleasant Homepage
-    </footer>
-</body>
-</html>
+        <div class="grid grid-cols-3 gap-3">
+            {% for category in categories %}
+                <div>
+                    <a href="#">
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ category.name }}</h2>
+                            <p class="text-gray-500">{{ category.omaps.count }} maps</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
