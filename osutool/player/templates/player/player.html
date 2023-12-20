@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Info{% endblock %}
+
+{% block content %}
+    <div class="w-1/2 my-6 mx-auto p-2 bg-teal-100 rounded-xl">
+        <h1 class="mb-6 text-3xl text-gray-700 text-center">{{ username }}</h1>
+        <h1 class="mb-6 text-1xl text-gray-700 text-center">{{ userid }}</h1>
+    </div>
+
+    <div class="w-1/2 my-6 mx-auto p-2 bg-teal-100 rounded-xl">
+        <h1 class="mb-6 text-3xl text-gray-700 text-center">Insights</h1>
+        <h1 class="mb-6 text-1xl text-gray-700 text-center">Accuracy: {{ insights.avg_accuracy }}</h1>
+        <h1 class="mb-6 text-1xl text-gray-700 text-center">Map Length: {{ insights.avg_map_length }}</h1>
+        <h1 class="mb-6 text-1xl text-gray-700 text-center">Best Mod: {{ insights.fav_mod }}</h1>
+        <h1 class="mb-6 text-1xl text-gray-700 text-center">Farmable PP: {{ insights.farmable_pp }}</h1>
+    </div>
+
+    {% for score in scores %}
+        <div class="w-1/2 my-6 mx-auto p-2 bg-gray-100 rounded-xl">
+            <h1 class="mb-6 text-gray-700">{{ score.rank.value }} | <a href={{score.beatmap.url}}>{{ score.beatmapset.title }}</a> | {{ score.mods }} | {{ score.accuracy }} | {{ score.pp }}</h1>
+        </div>
+    {% endfor %}
+{% endblock %}
